@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset = "UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name = "viewport" content = "width = device-width, initial-scale = 1.0">
+    <title> Arkan Fadhil Kautsar</title>
+    <link rel = "stylesheet" href = "style.css"> 
+    <link rel="stylesheet" href="chatbot.css">
+    <script src="https://kit.fontawesome.com/92f65dfeab.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="library.css">
+    <!-- React and ReactDOM -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+
+<body>
+    <div id = "header">
+        <div class = "container">
+            <nav>
+                <img src="logo.png" class="logo">
+                <ul id="sidemenu">
+                    <li><a href = "#header">Home</a></li>
+                    <li><a href = "#about">Create Slides</a></li>
+                    <li><a href = "#services">Practice</a></li>
+                    <li><a href = "#portfolio">Library</a></li>
+                    <li><a href = "#contact">About</a></li>
+                    <i class="fa-solid fa-xmark" onclick="closemenu()"></i>
+                </ul>
+                <i class="fa-solid fa-bars" onclick="openmenu()"></i>
+                <a class="btn btn2">Login</a>
+            </nav>
+            <div class = "header-text">
+                <p>Get textbooks, one chat away</p>
+            </div>
+        </div>
+    <!-- Chatbot UI-->
+    <div id="chatbot-widget"></div>
+    </div>
+
+        <!-- Login Page -->
+    <div id="login-page" class="hidden">
+      <div class="login-container">
+          <h2>Login</h2>
+          <form id="login-form">
+              <input id="login-username" type="text" placeholder="Username/Email" required>
+              <input type="password" placeholder="Password" required>
+              <button type="submit" class="btn btn2">Login</button>
+          </form>
+      </div>
+    </div>
+
+    <!-- Library -->
+    <div id="library" class="hidden">
+      <div class="library-container">
+        <h2 class="sub-title">Your Library</h2>
+        <div class="library-list">
+          <!-- PDF items will be dynamically added here -->
+        </div>
+      </div>
+    </div>
+
+    <!-----contact -------------->
+    <div id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="contact-left">
+                    <h1 class = "sub-title">Contact Us</h1>
+                    <p><i class="fa-solid fa-envelope"></i>alexandria.ai@gmail.com</p>
+                    <p><i class="fa-solid fa-phone"></i>+1 (111) 111 1111</p>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>Made with <i class="fa-solid fa-heart"></i> by Team lebron jaimes</p>
+        </div>
+    </div>
+    <!-- Chatbot UI -->
+<script src="index.js"></script>
+<script type="text/babel">
+    function ChatbotWidget() {
+      const [messages, setMessages] = React.useState([
+        { text: "Hello! How can I assist you today?", sender: "bot" }
+      ]);
+      const [input, setInput] = React.useState("");
+      const [isBotResponding, setIsBotResponding] = React.useState(false);
+  
+      const sendMessage = () => {
+        if (!input.trim()) return;
+        const newMessages = [...messages, { text: input, sender: "user" }];
+        setMessages(newMessages);
+        setInput("");
+        setIsBotResponding(true);
+  
+    setTimeout(() => {
+      setMessages(prev => [...prev, { text: "I'm just a demo bot!", sender: "bot" }]);
+      setIsBotResponding(false);
+    }, 1000);
+  };
+
+  const stopBotResponse = () => {
+    setIsBotResponding(false);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" || e.code === "Enter") {
+      e.preventDefault();
+      sendMessage();
+    }
+  };
+  
+      return (
+        <div class="chatbot-container">
+    <h3 class="chatbot-header">Create Slides</h3>
+    <div class="chatbot-messages">
+      {messages.map((msg, index) => (
+        <div key={index} class={`chatbot-message ${msg.sender}`}>
+          {msg.text}
+        </div>
+      ))}
+    </div>
+    <div class="chatbot-input-container">
+      <div class="social-icons"><i class="fa-solid fa-paperclip"></i></div>
+      <input 
+        class="chatbot-input"
+        type="text" 
+        value={input} 
+        onChange={(e) => setInput(e.target.value)} 
+        placeholder="Type a message..."
+        onKeyDown={handleKeyDown}
+      />
+      <button 
+        class="chatbot-send-button" 
+        onClick={isBotResponding ? stopBotResponse : sendMessage}
+      >
+      {isBotResponding ? "Stop" : "Send"} {/* Change button text */}
+      </button>
+    </div>
+  </div>
+      );
+    }
+    window.onload = function() {
+    const chatbotContainer = document.getElementById("chatbot-widget");
+    console.log(chatbotContainer);
+    if (chatbotContainer) {
+      ReactDOM.createRoot(chatbotContainer).render(<ChatbotWidget />);
+      console.log("Chatbot initialized successfully.");
+    } else {
+      console.error("Chatbot container not found.");
+    }
+  };
+  </script>
+</body>
+</html>

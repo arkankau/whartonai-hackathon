@@ -1,0 +1,76 @@
+/* Library Section */
+#library {
+    padding: 50px 0;
+}
+
+.library-container {
+    text-align: center;
+}
+
+.library-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-gap: 40px;
+    margin-top: 50px;
+}
+
+.library-item {
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.5s;
+}
+
+.library-item:hover {
+    transform: scale(1.05);
+}
+
+.library-item img {
+    width: 100%;
+    border-radius: 10px;
+    display: block;
+}
+
+.library-layer {
+    width: 100%;
+    height: 0;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), #f0cd55);
+    border-radius: 10px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 20px;
+    text-align: center;
+    font-size: 14px;
+    transition: height 0.5s;
+}
+
+.library-layer h3 {
+    font-weight: 500;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.library-layer a {
+    margin-top: 10px;
+    text-decoration: none;
+    color: #f0cd55;
+    font-size: 18px;
+    line-height: 60px;
+    background: #fff;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    text-align: center;
+}
+
+.library-item:hover .library-layer {
+    height: 100%;
+}
